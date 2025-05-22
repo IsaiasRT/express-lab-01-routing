@@ -21,14 +21,22 @@ app.get("/", (req, res) => {
 
 // Task 1: Health Check Endpoint
 // CREATE GET /health
+
+
 app.get("/health", (req, res) => {
-  // Return JSON: { status: "ok" }
+ res.status(200).send( { 
+      status: "ok" 
+    })   
 });
 
 // TASK 2: User Routes
 const users = [
-  { id: 1, name: "Alice" },
-  { id: 2, name: "Bob" },
+  { id: 1, 
+    name: "Alice" 
+  },
+  { id: 2, 
+    name: "Bob" 
+  },
 ];
 
 app.get("/users", (req, res) => {
