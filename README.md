@@ -126,7 +126,7 @@ Collection Setup
    - **GET** http://localhost:3000/users
    - **GET** http://localhost:3000/users/1 (valid user)
    - **GET** http://localhost:3000/users/999 (invalid user)
-   - **POST** http://localhost:3000/messages
+   - **POST** http://localhost:3000/message
 
 ## 🧪 Automated Testing with Jasmine
 
