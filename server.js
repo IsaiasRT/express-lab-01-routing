@@ -63,11 +63,33 @@ app.get("/users/:id", (req, res) => {
 //    - Generated ID (number)
 //    - Original text
 //    - status: "received"
+
+app.post("/messages", (req, res) => {
+  const { text } = req.body; // Correct extraction of `text`
+
+  if (!text || typeof text !== "string" || text.trim() === "") {
+    return res.status(400).json({ error: "No message content provided" });
+  }
+
+  const message = {
+    id: Date.now(),
+    text: text.trim(), // Ensures clean input
+    status: "received",
+  };
+
+  res.status(201).json(message);
+});
+app.use(express.json());
 app.post("/messages", (req, res) => {
   const text = req.body;
-  if (text) {
+  if (!text || text.trim() === "") {
     return res.status(400).json({ error: "nothing written here" });
   }
+  const message = {
+    id: Date.now(),
+    text: text,
+    status: "received",
+  };
 
   res.status(201).json(text)({});
 });
