@@ -29,6 +29,7 @@ app.get("/health", (req, res) => {
 });
 
 // TASK 2: User Routes
+// 1. get id from req.params
 app.get("/users", (req, res) => {
   const users = [
     { id: 1, name: "Alice" },
@@ -37,6 +38,7 @@ app.get("/users", (req, res) => {
   res.status(200).json(users);
 });
 
+// 2. find user in array
 app.get("/users/:id", (req, res) => {
   const users = [
     { id: 1, name: "Alice" },
@@ -44,7 +46,7 @@ app.get("/users/:id", (req, res) => {
   ];
   const userID = parseInt(req.params.id);
   const user = users.find((u) => u.id === userID);
-
+  // 3. Return user or 404 if not found
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
@@ -52,28 +54,23 @@ app.get("/users/:id", (req, res) => {
   res.status(200).json(user);
 });
 
-// 1. Get ID from req.params
-// 2. Find user in array
-// 3. Return user or 404 if not found
-
 // TASK 3: Message Submission
+
 // 1. Get text from req.body
-// 2. Validate text exists
-// 3. Return JSON with:
-//    - Generated ID (number)
-//    - Original text
-//    - status: "received"
-
 app.post("/messages", (req, res) => {
-  const { text } = req.body; // Correct extraction of `text`
+  const { text } = req.body;
 
+  // 2. Validate text exists
   if (!text || typeof text !== "string" || text.trim() === "") {
-    return res.status(400).json({ error: "No message content provided" });
+    return res.status(400).json({ error: "Text is required" });
   }
-
+  // 3. Return JSON with:
+  //    - Generated ID (number)
   const message = {
     id: Date.now(),
-    text: text.trim(), // Ensures clean input
+    //    - Original text
+    text: text.trim(),
+    //    - status: "received"
     status: "received",
   };
 
@@ -92,6 +89,21 @@ app.post("/messages", (req, res) => {
   };
 
   res.status(201).json(text)({});
+});
+app.post("/messages", (req, res) => {
+  const { text } = req.body;
+
+  if (!text || typeof text !== "string" || text.trim() === "") {
+    return res.status(400).json({ error: "Text is required" });
+  }
+
+  const message = {
+    id: `${Date.now()}`,
+    text: text.trim(),
+    status: "received",
+  };
+
+  res.status(201).json(message);
 });
 
 // ------------------------------------------------
